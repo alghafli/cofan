@@ -119,7 +119,10 @@ import json
 import zipfile
 import traceback
 import datetime
-from fileslice import Slicer
+try:
+    from fileslice import Slicer
+except ImportError:
+    Slicer = None
 
 __version__ = re.search(
         ':Version: (?P<version>[0-9](\.[0-9])*)',
@@ -1202,7 +1205,8 @@ class BaseHandler(http.server.BaseHTTPRequestHandler):
         changed to a partial file pointing to the requested range.
         '''
         
-        if response == http.HTTPStatus.OK and content.seekable():
+        if (response == http.HTTPStatus.OK and content.seekable() and
+                Slicer is not None):
             rng = self.headers['Range'].split('=')
             if rng[0] == 'bytes':
                 rng = rng[1].split('-')
