@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cofan Tutorial &mdash; cofan 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cofan 0.0.2 documentation" href="#"/>
+        <link rel="next" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> cofan
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Serving Multiple Directories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">cofan Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">cofan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>cofan Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cofan-tutorial">
+<h1>cofan Tutorial<a class="headerlink" href="#cofan-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial gives an introduction to how to use cofan python library and its
+features.</p>
+<p>This is not a python tutorial. You are expected to have general knowledge in
+python before you start this tutorial.</p>
+<div class="section" id="about-cofan">
+<h2>About cofan<a class="headerlink" href="#about-cofan" title="Permalink to this headline">¶</a></h2>
+<p><cite>cofan</cite> is an http server library. It is similar to python standard
+<cite>http.server</cite> libarary but with the following features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Serve the content of a local directory as a file browser with icons for
+directories and files based on their extension.</li>
+<li>Serve the content of a local zip file the same way as the local
+directories.</li>
+<li>List the content of a local directory in json form.</li>
+<li>Serve local html files as a web site.</li>
+<li>Organize your urls in prefix trees.</li>
+<li>Response differently for different ip addresses</li>
+</ul>
+</div></blockquote>
+<p>To put it short, look at the following screenshot comparison of <cite>http.server</cite>
+and <cite>cofan</cite>.</p>
+<div class="figure" id="id1">
+<img alt="_images/comparison-with-http-server.png" src="_images/comparison-with-http-server.png" />
+<p class="caption"><span class="caption-text">Comparison of <cite>http.server</cite> web page (left) and <cite>cofan</cite> (right)</span></p>
+</div>
+</div>
+<div class="section" id="content">
+<h2>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id1">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick-guide.html#serve-local-directory">Serve local directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-guide.html#further-readings">Further readings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="serving-a-local-dir.html#the-beginning">The beginning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-a-local-dir.html#the-filer-class">The Filer class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-a-local-dir.html#handling-requests">Handling requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-a-local-dir.html#starting-the-server">Starting the server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-a-local-dir.html#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#content-providers">Content providers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#the-iconer-class">The Iconer class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#the-patterner-class">The Patterner class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#iconer-prefix">Iconer prefix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#iconer-images">Iconer images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#our-program-so-far">Our program so far</a></li>
+<li class="toctree-l2"><a class="reference internal" href="showing-icons.html#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Serving Multiple Directories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="serving-multiple-dirs.html#another-filer">Another Filer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-multiple-dirs.html#another-pattern">Another pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-multiple-dirs.html#a-last-word-about-prefixes">A last word about prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-multiple-dirs.html#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="listing-prefixes.html#pattern-lister">Pattern lister</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listing-prefixes.html#icons-for-our-prefixes">Icons for our prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listing-prefixes.html#adding-title-to-our-pages">Adding title to our pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listing-prefixes.html#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="serving-zip-files.html#ziper">Ziper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-zip-files.html#serving-a-static-website">Serving a static website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serving-zip-files.html#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="other-features.html#statuser">Statuser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other-features.html#ippatterner">IPPatterner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other-features.html#jfiler">JFiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other-features.html#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">cofan Reference</a></li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mohammad Alghafli.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

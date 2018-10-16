@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Serving Multiple Directories &mdash; cofan 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cofan 0.0.2 documentation" href="index.html"/>
+        <link rel="next" title="Listing Prefixes" href="listing-prefixes.html"/>
+        <link rel="prev" title="Showing Icons" href="showing-icons.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cofan
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Serving Multiple Directories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#another-filer">Another Filer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#another-pattern">Another pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-last-word-about-prefixes">A last word about prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">cofan Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cofan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Serving Multiple Directories</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/serving-multiple-dirs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="serving-multiple-directories">
+<h1>Serving Multiple Directories<a class="headerlink" href="#serving-multiple-directories" title="Permalink to this headline">¶</a></h1>
+<p>In the previous lesson, we added icons to our web site. However, we were only
+serving our videos. In this lesson, we will serve the content of our music
+folder too.</p>
+<div class="section" id="another-filer">
+<h2>Another Filer<a class="headerlink" href="#another-filer" title="Permalink to this headline">¶</a></h2>
+<p>The first step to serve our music is to create another <cite>Filer</cite>. This is easy
+for us because we did it in :doc: <cite>serve-local-dir</cite> lesson. The only difference
+here is the directory we are serving.</p>
+<p>music = Filer(‘/home/user/Music/’, iconer=iconer)</p>
+<p>Notice that we have used the same iconer to get the icons. This way, both the
+video filer and the music filer will use the same icon theme.</p>
+</div>
+<div class="section" id="another-pattern">
+<h2>Another pattern<a class="headerlink" href="#another-pattern" title="Permalink to this headline">¶</a></h2>
+<p>Remember that we use the <cite>Patterner</cite> to forward requests to one of multiple
+providers based on the url prefix. our <cite>music</cite> is just another provider. Before
+we add it to the <cite>patterner</cite>, let make a few modifications to our previous
+program. We will make another url prefix plan:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>video/</cite> will be the prefix for the video filer.</li>
+<li><cite>music/</cite> will be the prefix for the music filer.</li>
+<li><cite>__icons__/</cite> will be the prefix for the iconer.</li>
+</ul>
+</div></blockquote>
+<p>Notice that we changed the prefix for the video filer. Before, it was an empty
+string. Now, it is <cite>video/</cite>. Let’s add the providers to our <cite>pattener</cite> now:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;video/&#39;</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;music/&#39;</span><span class="p">,</span> <span class="n">music</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are done. Our program now becomes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cofan</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">patterner</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+<span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">()</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Videos/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+<span class="n">music</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Music/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+
+<span class="c1">#add prefixes</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;video/&#39;</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;music/&#39;</span><span class="p">,</span> <span class="n">music</span><span class="p">)</span>
+
+<span class="c1">#make the handler use our patterner as its provider</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterner</span><span class="p">)</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">cofan</span><span class="o">.</span><span class="n">Server</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Notice that we do not have any provider for the home page url so if we type in
+the browser address bar <cite>localhost:8000</cite>, we get a <cite>NOT FOUND</cite> error. We need to
+type <cite>localhost:8000/video/</cite> or <cite>localhost:8000/music/</cite> to open an existing
+page. That is not so convenient. All websites have a home page right? We are
+going to fix this in the next lesson.</p>
+</div>
+<div class="section" id="a-last-word-about-prefixes">
+<h2>A last word about prefixes<a class="headerlink" href="#a-last-word-about-prefixes" title="Permalink to this headline">¶</a></h2>
+<p>The prefixes we use in our patterner class can be any regular expression. as
+mentioned in a previous lesson, any trailing slash is required except for the
+root url. The pattern <cite>video</cite> will make the patterner function improperly. Use
+<cite>video/</cite> with a trailing slash instead.</p>
+<p>Whenever a request is recieved, the patterner will do the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>It removes the root address and the root address trailing slash.
+In our example, when the requested address is
+<cite>localhost:8000/video/example.mp4</cite>, the patterner will remove
+<cite>localhost:8000/</cite>. The url now becomes <cite>video/example.mp4</cite>.</li>
+<li>Match each pattern with the beginning of the url. In our example, the url
+from the previous step is <cite>video/example.mp4</cite>. The patterner will look
+for the prefix that the url starts with. The prefix in this case
+will be <cite>video/</cite>.</li>
+<li>Remove the prefix from the url. Now the url becomes only <cite>example.mp4</cite>.</li>
+<li>Forwards the request and the new url to the corresponding provider.</li>
+</ul>
+</div></blockquote>
+<p>Now the video filer will get a request with the url <cite>example.mp4</cite> only and will
+search for this file in its root directory.</p>
+</div>
+<div class="section" id="next">
+<h2>Next<a class="headerlink" href="#next" title="Permalink to this headline">¶</a></h2>
+<p>In the next lesson, we will make a home page for our website. Our home page will
+have links to our video page and music page.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="listing-prefixes.html" class="btn btn-neutral float-right" title="Listing Prefixes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="showing-icons.html" class="btn btn-neutral" title="Showing Icons" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mohammad Alghafli.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

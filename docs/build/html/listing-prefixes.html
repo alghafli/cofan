@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Listing Prefixes &mdash; cofan 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cofan 0.0.2 documentation" href="index.html"/>
+        <link rel="next" title="Serving Zip Files" href="serving-zip-files.html"/>
+        <link rel="prev" title="Showing Icons" href="serving-multiple-dirs.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cofan
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Showing Icons</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Listing Prefixes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pattern-lister">Pattern lister</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#icons-for-our-prefixes">Icons for our prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-title-to-our-pages">Adding title to our pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">cofan Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cofan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Listing Prefixes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/listing-prefixes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="listing-prefixes">
+<h1>Listing Prefixes<a class="headerlink" href="#listing-prefixes" title="Permalink to this headline">¶</a></h1>
+<p>In the previous lesson, we made a music page in addition to the video page.
+However, there is nothing in the home page of our website. In this lesson, we
+will make a home page for our website which will contain a link to our video
+page and another link for our music page.</p>
+<div class="section" id="pattern-lister">
+<h2>Pattern lister<a class="headerlink" href="#pattern-lister" title="Permalink to this headline">¶</a></h2>
+<p>We need the <cite>PatternLister</cite> provider for this job. The <cite>PatternLister</cite> is used
+to create a page with a list of all the prefixes in a <cite>Patterner</cite> object so that
+users can click on an item and open the corresponding page. This will help us to
+create our home page.</p>
+<p>First, we need to create a <cite>PatternLister</cite> object and tell it to list prefixes
+from our patterner:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">lister</span> <span class="o">=</span> <span class="n">PatternLister</span><span class="p">(</span><span class="n">patterner</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In our example, There are three prefixes in the <cite>pattener</cite>: <cite>video/</cite>, <cite>music/</cite>
+and <cite>__icons__/</cite>. Our <cite>lister</cite> now knows them.</p>
+<p>Remember that the <cite>pattener</cite> is the first provider that handles a request and it
+will forward it to other providers. In order to forward requests to our
+<cite>lister</cite>, we need to add it to the <cite>pattener</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">lister</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now our <cite>lister</cite> is added to the <cite>pattener</cite> and it has the home page prefix
+(that is empty string). Now open your browser to <cite>localhost:8000</cite>.</p>
+<p>Wait a second!! We have the ugly no icon page again.. Furthermore, it only
+lists two prefixes: <cite>video/</cite> and <cite>music/</cite>. What about <cite>__icons__</cite>?!</p>
+<p>For the ugly page without icons, it is OK because that is what we will fix in
+the next section.</p>
+<p>For the <cite>__icons__/</cite> prefix, it is not listed because the <cite>PatterLister</cite> by
+default hides any prefix that starts and ends with two underscores. <cite>__icons__/</cite>
+does start and ends with two underscores and that is why it is not listed. We
+can change that if we wanted. However, we should leave the icons prefix unlisted
+because this prefix is only used for icons and is not intended to be opened by
+users directly.</p>
+</div>
+<div class="section" id="icons-for-our-prefixes">
+<h2>Icons for our prefixes<a class="headerlink" href="#icons-for-our-prefixes" title="Permalink to this headline">¶</a></h2>
+<p>Now we want to get rid of the no-icon ugliness. To do that, we first need to
+make a zip file which contains icons for each prefix. So lets make a zip file
+that contains the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>An image named <cite>video.png</cite>.</li>
+<li>An image named <cite>music.png</cite>.</li>
+</ul>
+</div></blockquote>
+<p>The image names must be the same as the prefix after removing all trailing
+slashes. The file format we used above is <cite>png</cite>. You could use any other format
+if you like as long as the file name without extension is the same as the
+prefix.</p>
+<p>Second, we need to tell our <cite>lister</cite> to get the icons from this zip file. Save
+the zip file in the same directory as our python file and name it <cite>icons.zip</cite>.
+Now, we modify our <cite>PatternLister</cite> object creation to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">lister</span> <span class="o">=</span> <span class="n">PatternLister</span><span class="p">(</span><span class="n">patterner</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;icons.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now our lister shows the icons we have put in the zip file.</p>
+<p>Now our latest program is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cofan</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">cofan</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">patterner</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+<span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">()</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Videos/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+<span class="n">music</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Music/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+<span class="c1">#this is our lister</span>
+<span class="n">lister</span> <span class="o">=</span> <span class="n">PatternLister</span><span class="p">(</span><span class="n">patterner</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;icons.zip&#39;</span><span class="p">)</span>
+
+<span class="c1">#add pages prefixes</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;video/&#39;</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;music/&#39;</span><span class="p">,</span> <span class="n">music</span><span class="p">)</span>
+
+<span class="c1">#remember: the home page prefix is always added last</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">lister</span><span class="p">)</span>
+
+<span class="c1">#make the handler use our patterner as its provider</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterner</span><span class="p">)</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">cofan</span><span class="o">.</span><span class="n">Server</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-title-to-our-pages">
+<h2>Adding title to our pages<a class="headerlink" href="#adding-title-to-our-pages" title="Permalink to this headline">¶</a></h2>
+<p>If you open the <cite>lister</cite> page, you will notice that the title shown in our
+<cite>lister</cite> for each page is the same as the page prefix but without a trailing
+slash. That is, our <cite>video/</cite> page is called <cite>video</cite> in the <cite>lister</cite>. The
+<cite>music/</cite> page is called <cite>music</cite> in the <cite>lister</cite>. May be you want to change that.
+For example, you want to start the title with a capital letter like <cite>Music</cite>. Or
+may be your users are Russian and you want the title to be <cite>Музыка</cite>. You can do
+that by giving the title as an argument to <cite>Patterner.add()</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;music/&#39;</span><span class="p">,</span> <span class="n">music</span><span class="p">,</span> <span class="s1">&#39;Музыка&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have changed the title for the <cite>music/</cite> page to be <cite>Музыка</cite>. You can
+change it to anything else.</p>
+</div>
+<div class="section" id="next">
+<h2>Next<a class="headerlink" href="#next" title="Permalink to this headline">¶</a></h2>
+<p>In the next lesson, we will serve files which are compressed in a zip file.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="serving-zip-files.html" class="btn btn-neutral float-right" title="Serving Zip Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="serving-multiple-dirs.html" class="btn btn-neutral" title="Showing Icons" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mohammad Alghafli.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
