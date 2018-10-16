@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Showing Icons &mdash; cofan 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cofan 0.0.2 documentation" href="index.html"/>
+        <link rel="next" title="Showing Icons" href="serving-multiple-dirs.html"/>
+        <link rel="prev" title="Serving a Local Directory" href="serving-a-local-dir.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cofan
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Showing Icons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#content-providers">Content providers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-iconer-class">The Iconer class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-patterner-class">The Patterner class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iconer-prefix">Iconer prefix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iconer-images">Iconer images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#our-program-so-far">Our program so far</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next">Next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">cofan Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cofan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Showing Icons</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/showing-icons.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="showing-icons">
+<h1>Showing Icons<a class="headerlink" href="#showing-icons" title="Permalink to this headline">¶</a></h1>
+<p>In the previous lesson, we started serving our videos in a file browser-like
+webpage. However, there were no icons in our page. In this lesson, we will add
+icons to the page.</p>
+<div class="section" id="content-providers">
+<h2>Content providers<a class="headerlink" href="#content-providers" title="Permalink to this headline">¶</a></h2>
+<p>Before we make our icons, let’s take sometime learning what content providers
+are in <cite>cofan</cite>.</p>
+<p><cite>cofan</cite> works with the concept of content providers. A provider is an object
+that takes the requested URL and gives back an HTTP response code the content to
+be sent to the client. An example of a content provider is the <cite>Filer</cite> object we
+created in the previous lesson.</p>
+<p>In cofan, we make a handler object and give it a single provider. Whenever the
+handler gets a request, it asks the provider for the content. In the previous
+lesson, we made a handler and told it to use our <cite>Filer</cite> object as its provider.
+We could have used a different provider if we needed and that is what we are
+going to do in this lesson.</p>
+</div>
+<div class="section" id="the-iconer-class">
+<h2>The Iconer class<a class="headerlink" href="#the-iconer-class" title="Permalink to this headline">¶</a></h2>
+<p><cite>Iconer</cite> is a class used to serve icons. We create an <cite>Iconer</cite> object and tell
+our filer to use it to get the icons.</p>
+<p>To use icons, first we need to create an <cite>Iconer</cite> object and tell our filer to
+use it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">()</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Videos/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you run the program now, you will notice nothing have changed. We still see
+an ugly page with no icons.</p>
+<p>The iconer is another content provider. It is like the filer but instead of
+listing directory content, it serves an icon if it is asked to. In our example
+above, all requests go to the filer object. No request ever goes to the iconer.</p>
+<p>We need to send some requests to the filer and some requests to the iconer. This
+is what we will do in the next few sections.</p>
+</div>
+<div class="section" id="the-patterner-class">
+<h2>The Patterner class<a class="headerlink" href="#the-patterner-class" title="Permalink to this headline">¶</a></h2>
+<p>We want to arrange our website to serve two things:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Our video files.</li>
+<li>File icons to show them in the file browser web page.</li>
+</ul>
+</div></blockquote>
+<p>We actually created the two providers for this, the filer and the iconer.
+However, we can only add a single provider to the handler.</p>
+<p>In such situation, the <cite>Patterner</cite> is our friend. The <cite>Patterner</cite> provider is a
+provider that checks the requested url. Based on the url, it forwards the
+request to other providers.</p>
+<p>In our example, we will make a url plan:</p>
+<blockquote>
+<div><ul class="simple">
+<li>If the url starts with <cite>__icons__/</cite> (notice the trailing slash <cite>/</cite>), we
+will forward the request to the iconer. In the next section, we will
+explain why we chose the prefix <cite>__icons__</cite>.</li>
+<li>Otherwise, we will forward the request to the video filer.</li>
+</ul>
+</div></blockquote>
+<p>The first step to do this is to create a <cite>Patterner</cite> instance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">patterner</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then we add our iconer and filer, each with its prefix, to the patterner:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, whenever the patterner gets a requested url which starts with ‘__icons__/’,
+it will forward it to the iconer and will remove the prefix from the url.
+If the url does not start with <cite>__icons__/</cite>, it will check the other prefix.
+Since the other prefix is an empty string, the check will always succeed
+(because all strings start with an empty string).</p>
+<p>Finally, instead of telling our handler to send requests to the filer directly,
+we tell the handler to forward the request to the patterner. The patterner then
+will forward to the other providers:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterner</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our program now becomes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cofan</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">patterner</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+<span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">()</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Videos/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+
+<span class="c1">#add prefixes</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span>
+
+<span class="c1">#make the handler use our patterner as its provider</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterner</span><span class="p">)</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">cofan</span><span class="o">.</span><span class="n">Server</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now our web site shows icons and looks better. In the next section, we will
+learn more about how to customize our iconer.</p>
+</div>
+<div class="section" id="iconer-prefix">
+<h2>Iconer prefix<a class="headerlink" href="#iconer-prefix" title="Permalink to this headline">¶</a></h2>
+<p>Our iconer now works and serves icons. However, how does the <cite>__icons__/</cite> prefix
+work? If you make any other prefix, it will not work.</p>
+<p>In order to make the iconer work correctly with the filer, the iconer needs to
+know what prefix you will give it. The same prefix has to be given to the iconer
+and the patterner. Even though we did not tell the iconer what prefix we will
+give it, it uses the prefix <cite>__icons__/</cite> by default. We could have changed that
+to, for example, <cite>myicons/</cite> if we wanted. We do this by using the <cite>prefix</cite>
+argument in the <cite>Iconer</cite> constructor. We just need to make sure that the prefix
+we give to the iconer is the same prefix we add to the patterner:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">patterner</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+<span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">()</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Videos/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+
+<span class="c1">#add prefixes</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;myicons/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">videos</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iconer-images">
+<h2>Iconer images<a class="headerlink" href="#iconer-images" title="Permalink to this headline">¶</a></h2>
+<p>Another thing we can customize in our iconer is the icons to show. We can do
+that in two ways.</p>
+<p>The first way is to specify an icon <cite>theme</cite> name. There are
+3 themes that come with <cite>cofan</cite>: <cite>humanity</cite>, <cite>plane</cite> and <cite>zafiro</cite>. If no theme
+is  specified, the iconer chooses the default theme which is <cite>humanity</cite>. We can
+change the theme using the <cite>theme</cite> argument in the <cite>Iconer</cite> constructor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;myicons/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now our icons have changed to use the <cite>plane</cite> theme.</p>
+<p>The second way to use icons is to specify a path to a zip file that contains
+icons using the <cite>root</cite> argument. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;/home/user/icons.zip&#39;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;myicons/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In order to use a zip file as an icon theme, it should contain image files in
+its toplevel directory. The images can be in any format and with any extension
+as long as the names follow the following rules:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>1- The icon for a specific file extension should be name by extension name.</dt>
+<dd>For example, <cite>mp3</cite> files icon can be names <cite>mp3.png</cite>, <cite>mp3.jpg</cite> or
+<cite>mp3.&lt;any extension&gt;</cite>.</dd>
+<dt>#- The icon for a general file mimetype should be named with the general</dt>
+<dd>mimetype. For example, an icon for video files generally can be named
+<cite>video.png</cite>, <cite>video.jpg</cite> or <cite>video.&lt;any extension&gt;</cite>. If you do not know
+what a mimetype is, search for it and read about what it is.</dd>
+<dt>#- The word <cite>directory</cite>. The icon with this name will be used as the icon for</dt>
+<dd>directories. For example, an icon for direcotries can be named
+<cite>direcotry.png</cite>, <cite>direcotry.jpg</cite> or <cite>direcotry.&lt;any extension&gt;</cite>.</dd>
+<dt>#- The word <cite>generic</cite>. The icon with this name will be used as a fallback</dt>
+<dd>icon for file types that have no icons in the zip file based on rules 1
+and 2 above. For example, a fallback icon can be named <cite>generic.png</cite>,
+<cite>generic.jpg</cite> or <cite>generic.&lt;any extension&gt;</cite>.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="our-program-so-far">
+<h2>Our program so far<a class="headerlink" href="#our-program-so-far" title="Permalink to this headline">¶</a></h2>
+<p>Below is our program so far. I have ignored the modifications we did in the last
+two sections:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cofan</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">patterner</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+<span class="n">iconer</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">()</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/home/user/Videos/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">iconer</span><span class="p">)</span>
+
+<span class="c1">#add prefixes</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="p">)</span>
+<span class="n">patterner</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span>
+
+<span class="c1">#make the handler use our patterner as its provider</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterner</span><span class="p">)</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">cofan</span><span class="o">.</span><span class="n">Server</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="next">
+<h2>Next<a class="headerlink" href="#next" title="Permalink to this headline">¶</a></h2>
+<p>In the next lesson, we will learn how to serve more than one local directory.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="serving-multiple-dirs.html" class="btn btn-neutral float-right" title="Showing Icons" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="serving-a-local-dir.html" class="btn btn-neutral" title="Serving a Local Directory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mohammad Alghafli.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

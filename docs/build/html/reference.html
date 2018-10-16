@@ -1,0 +1,907 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cofan Reference &mdash; cofan 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cofan 0.0.2 documentation" href="index.html"/>
+        <link rel="prev" title="Other Features" href="other-features.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cofan
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">cofan Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cofan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>cofan Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/reference.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-cofan">
+<span id="cofan-reference"></span><h1>cofan Reference<a class="headerlink" href="#module-cofan" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body"><p class="first">2018-10-14</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body"><p class="first">0.0.2</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body"><ul class="first last simple">
+<li>Mohammad Alghafli &lt;<a class="reference external" href="mailto:thebsom&#37;&#52;&#48;gmail&#46;com">thebsom<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>cofan is an http server library for serving files and any other things. You use
+it to share content in the form of a website. The current classes give you the
+following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Serve the content of a local directory in a form similar to file browser
+with icons for directories and files based on their extension.</li>
+<li>Serve the content of a local zip file the same way as the local
+directories.</li>
+<li>List the content of a local directory in json form.</li>
+<li>Serve local html files as a web site.</li>
+<li>Organize your urls in prefix trees.</li>
+<li>Response differently for different ip addresses</li>
+</ul>
+</div></blockquote>
+<p>It also supports requests of partial files to resume previously interrupted
+download.</p>
+<p>Here is an example of how to use it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cofan</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="c1">#our site will be like this:</span>
+<span class="c1">#   /           (this is our root. will list all the branches below)</span>
+<span class="c1">#   |</span>
+<span class="c1">#   |- vid/</span>
+<span class="c1">#   |  this branch is a file browser for videos</span>
+<span class="c1">#   |</span>
+<span class="c1">#   -- site/</span>
+<span class="c1">#      this will be a web site. just a collection of html files</span>
+
+<span class="c1">#lets make an http file browser and share our videos</span>
+<span class="c1">#first, we specify the icons used in the file browser</span>
+<span class="c1">#you can omit the theme. it defaults to `humanity`</span>
+<span class="n">icons</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="s1">&#39;humanity&#39;</span><span class="p">)</span>
+
+<span class="c1">#now we create a Filer and specify the path we want to serve</span>
+<span class="n">vid</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;Videos&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">icons</span><span class="p">)</span>
+
+<span class="c1">#we also want to serve a web site. lets create another filer. since the root</span>
+<span class="c1">#directory of the site contains `index.html` file, the filer</span>
+<span class="c1">#will automatically redirect to it instead of showing a file browser</span>
+<span class="c1">#no file browser also means we do not need to specify `iconer`</span>
+<span class="c1">#parameter. you can still use it if you want but that would not be very</span>
+<span class="c1">#useful</span>
+<span class="n">site</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;mysite&#39;</span><span class="p">)</span>
+
+<span class="c1">#now we need to give prefixes to our branches</span>
+<span class="c1">#we create a patterner</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+
+<span class="c1">#then we add the iconer, filers with their prefixes</span>
+<span class="c1">#make sure to add a trailing slash</span>
+<span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;vid/&#39;</span><span class="p">,</span> <span class="n">vid</span><span class="p">)</span>
+<span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;site/&#39;</span><span class="p">,</span> <span class="n">site</span><span class="p">)</span>
+<span class="c1">#we also need to add our iconer</span>
+<span class="c1">#you need to tell the iconer about its prefix. by default it assumes</span>
+<span class="c1">#`__icons__`</span>
+<span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">icons</span><span class="p">)</span>
+
+<span class="c1">#now we have all branches. but what if the user types our root url?</span>
+<span class="c1">#the path we will get will be an empty string which is not a prefix of any</span>
+<span class="c1">#branch. that will be a 404</span>
+<span class="c1">#lets make the root list and other branches added to `patterns`</span>
+<span class="c1">#the branches will be shown like the file browser but now the icons will be</span>
+<span class="c1">#for the patterns instead of file extensions</span>
+<span class="c1">#we need to specify where the icons are taken from</span>
+<span class="c1">#the icons file should contain an icon named `vid.&lt;ext&gt;` and an icon named</span>
+<span class="c1">#`site.&lt;ext&gt;` where &lt;ext&gt; can be any extension.</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">PatternLister</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;icons.zip&#39;</span><span class="p">)</span>
+
+<span class="c1">#and we add our root to the patterns with empty prefix</span>
+<span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+
+<span class="c1">#now we create our handler like in http.server. we give it our patterner</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+
+<span class="c1">#and create our server like in http.server</span>
+<span class="n">srv</span> <span class="o">=</span> <span class="n">Server</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+
+<span class="c1">#and serve forever</span>
+<span class="n">srv</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+<span class="c1">#now try to open your browser on http://localhost:8000/</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="cofan.BaseHandler">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">BaseHandler</code><span class="sig-paren">(</span><em>provider</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base http handler class in cofan library. It holds a provider instance and
+gets the response of all requests from it. Note that unlike what is usually
+done in http.server, when creating an http.HTTPServer instance, you should
+pass an instance of <cite>BaseHandler</cite> instead of the class itself. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myprovider</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="s1">&#39;/path/to/my/directory&#39;</span><span class="p">)</span>
+<span class="n">myhandler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">myprovider</span><span class="p">)</span>
+<span class="n">srv</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="n">myhandler</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><cite>BaseHandler</cite> has one class attribute:</p>
+<blockquote>
+<div><p>__header_modifiers__: A tuple of request headers which have modifier
+methods in this class. For each header present in a request,
+<cite>self.mod_&lt;header&gt;()</cite> is called where &lt;header&gt; is the header name. The
+modifier method must return the response, headers and content after any
+necessary modification. It must take the following arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li>response: Last response status code after any previous
+modifications by other modifier mehtods.</li>
+<li>headers: Last headers after any previous modifications by other
+modifier mehtods.</li>
+<li>content: Last content file after any previous modifications by
+other modifier mehtods.</li>
+</ul>
+</div></blockquote>
+<p>This tuple currently has only one header: <cite>Range</cite>. See
+<cite>self.mod_Range()</cite> for the modification applied.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="cofan.BaseHandler.do_GET">
+<code class="descname">do_GET</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseHandler.do_GET" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <cite>BaseProvider.get_content()</cite> from <cite>self.provider</cite> and sends the
+returned response, headers and content. After this process is done,
+the content file is closed and the returned post processing fucntion is
+called. This happens regardless of whether the process ended with
+success or not.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.BaseHandler.do_HEAD">
+<code class="descname">do_HEAD</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseHandler.do_HEAD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>self.do_GET()</cite> but does not send any content.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.BaseHandler.get_response">
+<code class="descname">get_response</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseHandler.get_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <cite>self.do_GET()</cite> and <cite>self.do_HEAD()</cite>. Parses the url  path and
+query string and replaces all url escapes. After that, it gets the
+response <cite>self.provider.get_content()</cite>. Before returning the response,
+headers, content file and post processing callables, it calls any
+modifier method that should be called. If the method fails while
+applying modifications, it closes the content file and calls the post
+processing callable before propagating the exception.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.BaseHandler.mod_Range">
+<code class="descname">mod_Range</code><span class="sig-paren">(</span><em>response</em>, <em>headers</em>, <em>content</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseHandler.mod_Range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the <cite>Range</cite> header is present in the request. If the
+response status code is 200 (OK) and the content file is seekable, the
+status code is changed to 206 (Partial Content) and the content file is
+changed to a partial file pointing to the requested range.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.BaseProvider">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">BaseProvider</code><a class="headerlink" href="#cofan.BaseProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>basic provider class. each time a request is intended to this provider,
+the provider should return a response code, headers and body. it defines two
+methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li>get_content(): this should return the response code, headers and body</li>
+<li>short_response(): helper method to send a response code and its
+description.</li>
+</ul>
+</div></blockquote>
+<p>You probably want to use one of <cite>BaseProvider</cite> subclasses or inherit it in
+your own class.</p>
+<dl class="classmethod">
+<dt id="cofan.BaseProvider.get_content">
+<em class="property">classmethod </em><code class="descname">get_content</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseProvider.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called by the <cite>http.server.BaseHTTPRequestHandler</cite> object
+when a request arrives. It must returns a tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Response code</li>
+<li>Response headers</li>
+<li>Response body</li>
+<li>Postprocessing callable</li>
+</ul>
+</div></blockquote>
+<p>The response code should be an integer or a member of http.HTTPStatus.
+Response headers should be a dictionary where keys are header keywords
+and values are header values. The body must be a readable file like
+object. Postprocessing callable is a callable object which takes no
+arguments. It is called after the request is served. The body object is
+closed automatically after serving the request and does not need to be
+closed in the postprocessing callable.</p>
+<p>This method should be overridden in subclasses. The default
+implementation is to send OK response code with a body that contains
+short description of the response code.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>handler (<cite>http.server.BaseHTTPRequestHandler</cite>): The object that
+called this method.</li>
+<li>url (str): The url that was requested after removing all prefixes
+by other providers. Look at <cite>Patterner</cite> for information of how
+prefixes are stripped.</li>
+<li>query (dict): Request query arguments. Defaults to empty
+dictionary.</li>
+<li>full_url (str): The full url that was requested without removing
+prefixes. Defaults to empty string</li>
+</ul>
+</div></blockquote>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li>response (http.HTTPStatus): Response code.</li>
+<li>headers (dict): Response headers.</li>
+<li>content (binary file-like object): The response content.</li>
+<li>postproc (callable): A callable that will be called after
+serving the content. This callable will be called as long as
+the <cite>get_content()</cite> method succeded regardless whether sending
+the content to the client succeded or not. The intention of
+this callable is to close all files other than <cite>content</cite> in
+case there are open files. For example, if <cite>content</cite> is a file
+inside a zip file, closing <cite>content</cite> is not enough without
+closing the parent zip file.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cofan.BaseProvider.short_response">
+<em class="property">static </em><code class="descname">short_response</code><span class="sig-paren">(</span><em>response=&lt;HTTPStatus.OK: 200&gt;</em>, <em>body=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.BaseProvider.short_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convinience method which can be used to send a status code and its
+description. It returns the same values as <cite>get_content</cite> but the code is
+specified as a parameter and the body defaults to a description of the
+code.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>response (http.HTTPStatus): Response code to send. Defaults to
+<cite>http.HTTPStatus.OK</cite>.</li>
+<li>body: The value to send in the body. It defaults to <cite>None</cite> which
+sends a short description of the code. If the body is not a bytes
+object, it is converted to a string and then encoded to utf8.</li>
+</ul>
+</div></blockquote>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li>response (http.HTTPStatus): Response code given in the args.</li>
+<li>headers (dict): Response headers dict with <cite>text/html</cite> in
+<cite>Content-Type</cite> header and the length of the body in
+<cite>Content-Length</cite> header.</li>
+<li>content (binary file-like object): Description of <cite>response</cite> as a
+utf-8 encoded string if <cite>body</cite> arg is <cite>None</cite>. Otherwise, returns
+<cite>body</cite> represented as utf-8 encoded string.</li>
+<li>postproc: Always a value of <cite>None</cite>.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.Filer">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">Filer</code><span class="sig-paren">(</span><em>root</em>, <em>iconer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Filer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>JFiler</cite> when the url points to a file. If the url points to
+a directory, the content of the directory is sent as an html file
+presenting directory content as a file browser with icons instead of JSON.</p>
+<dl class="method">
+<dt id="cofan.Filer.serve_dir">
+<code class="descname">serve_dir</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Filer.serve_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>JFiler.serve_dir()</cite>. Sends an html file containing
+subdirectories and files present in the requested directory in a similar
+way to file browsers. Icons are taken from <cite>self.iconer</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.IPPatterner">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">IPPatterner</code><a class="headerlink" href="#cofan.IPPatterner" title="Permalink to this definition">¶</a></dt>
+<dd><p>The same as <cite>Patterner</cite> but relays requests based on IP address patterns
+instead of url.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.Iconer">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">Iconer</code><span class="sig-paren">(</span><em>root=None</em>, <em>theme='humanity'</em>, <em>prefix='__icons__/'</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Iconer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>Ziper</cite> but used to serve file icons used in <cite>Filer</cite> and <cite>Ziper</cite>.
+Defines methods to help other objects find icon urls for files of different
+types. The root of <cite>Iconer</cite> is a zip file which contains image files in its
+toplevel. The name of each image file should be in the form <cite>&lt;name&gt;.&lt;ext&gt;</cite>
+where <cite>&lt;ext&gt;</cite> can be any extension and &lt;name&gt; can be any of the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The string <cite>directory</cite>. It makes the image used as the icon for
+directories.</li>
+<li>A file extension. It makes the image used for file of this extension.</li>
+<li>General mimetype (such as audio, video, text, …). It makes the image
+used for this mimetype if the file extension image does not exist.</li>
+<li>The string <cite>generic</cite>. It makes the image used as a fallback icon if
+none of the above was found.</li>
+</ul>
+</div></blockquote>
+<p>Any file without extension in <cite>self.root</cite> is ignored.</p>
+<dl class="method">
+<dt id="cofan.Iconer.get_icon">
+<code class="descname">get_icon</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Iconer.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is to be used in other content providers to get icons.
+Returns the url of an icon for <cite>name</cite>. The icon is constructed in the
+following way:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The extension is extracted from <cite>name</cite>. If <cite>name</cite> has no
+extension, the full value of <cite>name</cite> is taken.</li>
+<li>If there is a file in <cite>self.root</cite> named as the extension of <cite>name</cite>
+extracted in the previous step, the url of this file is
+returned. For example, if <cite>name</cite> is <cite>foo.mp4</cite>, this method will
+look for a file named <cite>mp4.&lt;extension&gt;</cite> where <cite>&lt;extension&gt;</cite> may
+be any string. The extension is case insensitive so <cite>foo.mp4</cite>
+will be the same as <cite>foo.MP4</cite>.</li>
+<li>If there is no file found in the previous step, the mimetype is
+guessed and the general type is taken (such as audio,
+video, etc…).</li>
+<li>If there is a file in <cite>self.root</cite> with the same name as the
+generel mimetype extracted in the previous step, the url of this
+file is returned. For example, if <cite>name</cite> is <cite>foo.mp4</cite>, this
+method will look for a file named <cite>mp4.&lt;anything&gt;</cite> first. If it
+there is no such file in <cite>self.root</cite>, the method will look for
+<cite>video.&lt;anything&gt;</cite>. <cite>&lt;anything&gt;</cite> may be any string.</li>
+<li>If there is no file found in the previous step, this method looks
+for a file named <cite>generic.&lt;anything&gt;</cite> and the url of this file
+is returned.</li>
+<li>If there is no file found in the previous step, an empty string
+is returned.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Iconer.get_icons">
+<code class="descname">get_icons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Iconer.get_icons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in <cite>self.__init__()</cite>. Looks at the toplevel content of <cite>self.root</cite>
+for any files and makes a dictionary for each file. The keys of the
+dictionary are file names without extensions and the values are the file
+names with extensions. Any files without extension are ignored. The
+dictionary is used to look for icons without opening the zip file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.JFiler">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">JFiler</code><span class="sig-paren">(</span><em>root</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists directory contents and serves files from local file system based on
+the recieved url.</p>
+<dl class="method">
+<dt id="cofan.JFiler.exists">
+<code class="descname">exists</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if the url points to an existing file or directory under
+<cite>self.root</cite>. Otherwise returns <cite>False</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>url (path-like object): The recieved url to check.</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>returns: True if <cite>url</cite> is an existing file or subdirectory in</dt>
+<dd><cite>self.root</cite>. False otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.JFiler.get_content">
+<code class="descname">get_content</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves files based on the url given starting from the <cite>self.root</cite>. If
+the url points to a file, the file is served. <cite>Last-Modified</cite> header is
+sent to help clients cache the file. If the url points to a directory,
+a list of files it contains is served as a JSON object with 2 members:</p>
+<blockquote>
+<div><ul class="simple">
+<li>dirs: List of directories under the requested directory. If
+<cite>full_url</cite> parameter is not an empty string, a ‘..’ value is
+added to the dirs list.</li>
+<li>files: List of files under the requested directory.</li>
+</ul>
+</div></blockquote>
+<p>If the url does not point to a file or directory under <cite>self.root</cite>, it
+responds with NOT FOUND.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.JFiler.get_file_list">
+<code class="descname">get_file_list</code><span class="sig-paren">(</span><em>url</em>, <em>parent=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.get_file_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <cite>self.get_content</cite>. Returns a dictionary containing 2
+members:</p>
+<blockquote>
+<div><ul class="simple">
+<li>dirs: A list of directories under the directory pointed by url.</li>
+<li>files: A list of files under the directory pointed by url.</li>
+</ul>
+</div></blockquote>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>url (path-like object): The directory url to list its content.</li>
+<li>parent (bool): If <cite>True</cite>, adds ‘..’ to the dirs list. Defaults to
+False.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.JFiler.is_dir">
+<code class="descname">is_dir</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if the url points to an existing directory under
+<cite>self.root</cite>. Otherwise returns <cite>False</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>url (path-like object): The recieved url to check.</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>return: True if <cite>url</cite> is an existing subdirectory of <cite>self.root</cite>. False</dt>
+<dd>otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.JFiler.is_file">
+<code class="descname">is_file</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if the url points to an existing file under <cite>self.root</cite>.
+Otherwise returns <cite>False</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>url (path-like object): The recieved url to check.</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>returns: True if <cite>url</cite> is an existing file in <cite>self.root</cite> or one of its</dt>
+<dd>subdirectories. False otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.JFiler.serve_dir">
+<code class="descname">serve_dir</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.serve_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <cite>self.get_content()</cite> when the url points to a direcotry. Gets
+a list of directories and files under the requested directory pointed by
+<cite>url</cite> argument.</p>
+<p>Takes the same arguments as <cite>self.get_content()</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.JFiler.serve_file">
+<code class="descname">serve_file</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.JFiler.serve_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <cite>self.get_content()</cite> when the url points to a file. Serves the
+file content as a JSON object.</p>
+<p>Takes the same arguments as <cite>self.get_content()</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.PatternLister">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">PatternLister</code><span class="sig-paren">(</span><em>provider</em>, <em>root=None</em>, <em>exclude='|__.*__/?'</em>, <em>include='.*'</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.PatternLister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <cite>Filer</cite> but instead of showing content of a directory, shows the
+prefixes added to a <cite>Patterner</cite>. It also provides icon urls for the
+prefixes. See <cite>Patterner</cite> for more details of the <cite>Patterner</cite> provider.</p>
+<dl class="method">
+<dt id="cofan.PatternLister.get_content">
+<code class="descname">get_content</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.PatternLister.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Iconer.get_content()</cite>. If the url is empty string, returns a
+list of prefixes in <cite>self.provider</cite>. If the url starts with
+<cite>__pattern_icons__/</cite>, returns an icon from <cite>self.root</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.PatternLister.get_icon">
+<code class="descname">get_icon</code><span class="sig-paren">(</span><em>name</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.PatternLister.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the icon of the prefix <cite>name</cite>. Unlike <cite>Iconer</cite>, this method
+takes <cite>name</cite> itself after striping any trailing slashes as the name of
+the icon.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.PatternLister.serve_patterns">
+<code class="descname">serve_patterns</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.PatternLister.serve_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>Filer.serve_dir()</cite> but returns prefixes from <cite>self.provider</cite>
+instead of directories. Used in <cite>self.get_content()</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.Patterner">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">Patterner</code><a class="headerlink" href="#cofan.Patterner" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>BaseProvider</cite> subclass that relays requests to other providers based on
+requested url pattern. The other providers are added to the <cite>Patterner</cite>
+instance with the request url pattern they should get. When the <cite>Patterner</cite>
+gets a request, it searches for a pattern that matches the beginning of the
+url. When found, the <cite>Patterner</cite> calls <cite>get_content()</cite> method of the target
+provider, giving it the same parameters but with the prefix stripped from
+the beginning of the url.</p>
+<dl class="method">
+<dt id="cofan.Patterner.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>pattern</em>, <em>provider</em>, <em>title=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Patterner.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a pattern and a provider to the <cite>Patterner</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>pattern (str): A string containing the url prefix of the provider.</li>
+<li>provider (<cite>BaseProvider</cite>): The provider to relay the request to.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Patterner.get_content">
+<code class="descname">get_content</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Patterner.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the pattern list for a pattern that matches the beginning of
+the url and relays the request to the corresponding provider. If not
+found, sends a <cite>NOT FOUND</cite> response.
+The search is done from the first added pattern. If two patterns
+overlap, the more specific pattern should be added first. For example,
+<cite>files/mysite/</cite> should be added before <cite>files/</cite>. Otherwise, any request
+to <cite>files/mysite/</cite> will be served by <cite>files/</cite> since it will be checked
+first.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Patterner.get_patterns">
+<code class="descname">get_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Patterner.get_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the pattern strings added to the <cite>Patterner</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Patterner.get_title">
+<code class="descname">get_title</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Patterner.get_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the pattern title.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>pattern (str): the pattern to look for its title.</li>
+</ul>
+</div></blockquote>
+<p>returns:</p>
+<blockquote>
+<div>The pattern title.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Patterner.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Patterner.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a pattern and its provider from the pattern list. If a pattern
+exists multiple times (which you should not do anyway), only the first
+occurance is removed.</p>
+<dl class="docutils">
+<dt>args:</dt>
+<dd>pattern (str): Pattern to remove.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.Server">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">Server</code><span class="sig-paren">(</span><em>server_address</em>, <em>RequestHandlerClass</em>, <em>bind_and_activate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>same as <cite>http.server.HTTPServer</cite> but handles requests in daemon threads.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.Statuser">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">Statuser</code><span class="sig-paren">(</span><em>response=&lt;HTTPStatus.NOT_FOUND: 404&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Statuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A subclass of <cite>BaseProvider</cite>. This provider is very similar to BaseProvider.
+The only difference is that it takes the response code in its constructor
+and sends this response code instead of OK.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cofan.Ziper">
+<em class="property">class </em><code class="descclassname">cofan.</code><code class="descname">Ziper</code><span class="sig-paren">(</span><em>root</em>, <em>iconer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>Filer</cite> but serves the content of a zip file instead of
+a directory. The root in the constructor must be a zip file. Files served
+from this class are not seekable so resuming download is not possible for
+the content of a Ziper.</p>
+<dl class="method">
+<dt id="cofan.Ziper.exists">
+<code class="descname">exists</code><span class="sig-paren">(</span><em>url</em>, <em>root=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.exists()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Ziper.get_content">
+<code class="descname">get_content</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.get_content()</cite>. Gives the same result as
+<cite>Filer.get_content()</cite> but looks at the content of a zip file instead of
+a directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Ziper.get_file_list">
+<code class="descname">get_file_list</code><span class="sig-paren">(</span><em>url</em>, <em>root=None</em>, <em>parent=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.get_file_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.get_file_list()</cite>. Looks at the content of the zip
+file instead of a directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Ziper.is_dir">
+<code class="descname">is_dir</code><span class="sig-paren">(</span><em>url</em>, <em>root=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.is_dir()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Ziper.is_file">
+<code class="descname">is_file</code><span class="sig-paren">(</span><em>url</em>, <em>root=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.is_file()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Ziper.serve_dir">
+<code class="descname">serve_dir</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em>, <em>root=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.serve_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.serve_dir()</cite>. Looks at the content of a zip file
+instead of a directory.</p>
+<p>This method has an additional optional argument:</p>
+<blockquote>
+<div>root (<cite>zipfile.ZipFile</cite>): Opened <cite>self.root</cite> It is used in
+<cite>self.get_content()</cite> to avoid opening and closing <cite>self.root</cite>
+multiple times. Defaults to None which means <cite>self.root</cite> will be
+opened and a new <cite>zipfile.ZipFile</cite> instance will be created.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cofan.Ziper.serve_file">
+<code class="descname">serve_file</code><span class="sig-paren">(</span><em>handler</em>, <em>url</em>, <em>query={}</em>, <em>full_url=''</em>, <em>root=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.Ziper.serve_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>JFiler.serve_dir()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+<p>This method has an additional optional argument:</p>
+<blockquote>
+<div>root(<cite>zipfile.ZipFile</cite>) Opened <cite>self.root</cite>. It is used in
+<cite>self.get_content()</cite> to avoid opening and closing <cite>self.root</cite>
+multiple times. Defaults to None which means <cite>self.root</cite> will be
+opened and a new <cite>zipfile.ZipFile</cite> instance will be created.</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="other-features.html" class="btn btn-neutral" title="Other Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mohammad Alghafli.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
