@@ -49,6 +49,27 @@ This is a typical usage example::
 
     #now try to open your browser on http://localhost:8000/
 
+-----------------------
+As a main python script
+-----------------------
+
+This module can also be run as a main python script to serve files from a
+directory.
+
+commandline syntax::
+
+    python -m cofan.py [-a <addr>] [<root>]
+
+options:
+
+    * -a <addr>, --addr <addr>: specify the address and port to bind to. <addr>
+    should be in the form `<ip>:<port>` where `<ip>` is the ip address and
+    `<port>` is the tcp port. defaults to `localhost:8000`.
+
+args:
+
+    * root: The root directory to serve. Defaults to the current directory.
+
 ----------------
 Further readings
 ----------------

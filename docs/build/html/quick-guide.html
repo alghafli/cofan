@@ -94,12 +94,13 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#serve-local-directory">Serve local directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#as-a-main-python-script">As a main python script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#further-readings">Further readings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
-<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Serving Multiple Directories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
@@ -214,6 +215,29 @@
 <span class="c1">#now try to open your browser on http://localhost:8000/</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="as-a-main-python-script">
+<h2>As a main python script<a class="headerlink" href="#as-a-main-python-script" title="Permalink to this headline">¶</a></h2>
+<p>This module can also be run as a main python script to serve files from a
+directory.</p>
+<p>commandline syntax:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cofan</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="o">&lt;</span><span class="n">addr</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>options:</p>
+<blockquote>
+<div><ul class="simple">
+<li>-a &lt;addr&gt;, –addr &lt;addr&gt;: specify the address and port to bind to. &lt;addr&gt;</li>
+</ul>
+<p>should be in the form <cite>&lt;ip&gt;:&lt;port&gt;</cite> where <cite>&lt;ip&gt;</cite> is the ip address and
+<cite>&lt;port&gt;</cite> is the tcp port. defaults to <cite>localhost:8000</cite>.</p>
+</div></blockquote>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li>root: The root directory to serve. Defaults to the current directory.</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="further-readings">
 <h2>Further readings<a class="headerlink" href="#further-readings" title="Permalink to this headline">¶</a></h2>
