@@ -1204,7 +1204,8 @@ class BaseHandler(http.server.BaseHTTPRequestHandler):
         status code is changed to 206 (Partial Content) and the content file is
         changed to a partial file pointing to the requested range.
         Response status code is changed to 416 (Requested Range Not Satisfiable)
-        if the range 
+        if the range start is not between 0 and total size or if the range end
+        is not between start and total size.
         '''
         
         if (response == http.HTTPStatus.OK and content.seekable() and
