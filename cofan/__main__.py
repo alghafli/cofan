@@ -33,6 +33,24 @@ handler = BaseHandler(provider)
 
 srv = Server(tuple(addr), handler)
 print('serving {} at {}:{}'.format(pathlib.Path(root).resolve(), *addr))
+if addr[0] in ['', '0.0.0.0']:
+    try:
+        import netifaces
+    except ImportError:
+        pass
+    else:
+        ifaces = netifaces.interfaces()
+        addrs = [netifaces.ifaddresses(c) for c in ifaces]
+        family_addrs = []
+        for c in addrs:
+            if srv.address_family.value in c:
+                family_addrs.extend(c[srv.address_family.value])
+        final_addrs = [c['addr'] for c in family_addrs]
+        
+        print('serving at the following addresses:')
+        for c in final_addrs:
+            print(c)
+
 try:
     srv.serve_forever()
 except KeyboardInterrupt:
