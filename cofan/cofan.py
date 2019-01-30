@@ -1160,7 +1160,6 @@ class BaseHandler(http.server.BaseHTTPRequestHandler):
         '''
         
         response, headers, content, postproc = self.get_response()
-        headers = {}
         try:
             self.send_response(response)
             for c in headers:
