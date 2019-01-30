@@ -1,5 +1,5 @@
-:Date: 2018-10-14
-:Version: 0.0.2
+:Date: 2019-01-30
+:Version: 0.0.3
 :Authors:
     * Mohammad Alghafli <thebsom@gmail.com>
 

@@ -1,6 +1,6 @@
 '''
-:Date: 2018-10-14
-:Version: 0.0.2
+:Date: 2019-01-30
+:Version: 0.0.3
 :Authors:
     * Mohammad Alghafli <thebsom@gmail.com>
 
@@ -1203,6 +1203,9 @@ class BaseHandler(http.server.BaseHTTPRequestHandler):
         response status code is 200 (OK) and the content file is seekable, the
         status code is changed to 206 (Partial Content) and the content file is
         changed to a partial file pointing to the requested range.
+        Response status code is changed to 416 (Requested Range Not Satisfiable)
+        if the range start is not between 0 and total size or if the range end
+        is not between start and total size.
         '''
         
         if (response == http.HTTPStatus.OK and content.seekable() and
@@ -1224,12 +1227,24 @@ class BaseHandler(http.server.BaseHTTPRequestHandler):
             
             total_size = content.seek(0, 2)
             length = end - start + 1
-            rng = 'bytes {}-{}/{}'.format(start, end, total_size)
             
-            headers['Content-Range'] = rng
-            headers['Content-Length'] = length
+            valid_start = 0 <= start < total_size
+            valid_end = start <= end < total_size
             
-            response = http.HTTPStatus.PARTIAL_CONTENT
+            if valid_start and valid_end:
+                rng = 'bytes {}-{}/{}'.format(start, end, total_size)
+                
+                headers['Content-Range'] = rng
+                headers['Content-Length'] = length
+                
+                response = http.HTTPStatus.PARTIAL_CONTENT
+            else:
+                rng = 'bytes */{}'.format(total_size)
+                
+                headers['Content-Range'] = rng
+                headers['Content-Length'] = length
+                
+                response = http.HTTPStatus.REQUESTED_RANGE_NOT_SATISFIABLE
             
             content = Slicer(content)(start, length)
         
@@ -1252,3 +1267,4 @@ class Server(socketserver.ThreadingMixIn, http.server.HTTPServer):
     '''
     
     daemon_threads = True
+

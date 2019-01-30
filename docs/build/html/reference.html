@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cofan Reference &mdash; cofan 0.0.2 documentation</title>
+  <title>cofan Reference &mdash; cofan 0.0.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cofan 0.0.2 documentation" href="index.html"/>
+    <link rel="top" title="cofan 0.0.3 documentation" href="index.html"/>
         <link rel="prev" title="Other Features" href="other-features.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.0.2
+                0.0.3
               </div>
             
           
@@ -168,10 +168,10 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body"><p class="first">2018-10-14</p>
+<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body"><p class="first">2019-01-30</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body"><p class="first">0.0.2</p>
+<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body"><p class="first">0.0.3</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body"><ul class="first last simple">
@@ -352,7 +352,10 @@ processing callable before propagating the exception.</p>
 <dd><p>Called when the <cite>Range</cite> header is present in the request. If the
 response status code is 200 (OK) and the content file is seekable, the
 status code is changed to 206 (Partial Content) and the content file is
-changed to a partial file pointing to the requested range.</p>
+changed to a partial file pointing to the requested range.
+Response status code is changed to 416 (Requested Range Not Satisfiable)
+if the range start is not between 0 and total size or if the range end
+is not between start and total size.</p>
 </dd></dl>
 
 </dd></dl>
@@ -896,7 +899,7 @@ opened and a new <cite>zipfile.ZipFile</cite> instance will be created.</div></b
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.2',
+            VERSION:'0.0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
