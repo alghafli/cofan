@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>cofan Reference &#8212; cofan 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Other Features" href="other-features.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-cofan.providers.base_provider">
+<span id="cofan-reference"></span><h1>cofan Reference<a class="headerlink" href="#module-cofan.providers.base_provider" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.base_provider.BaseProvider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.base_provider.</span></span><span class="sig-name descname"><span class="pre">BaseProvider</span></span><a class="headerlink" href="#cofan.providers.base_provider.BaseProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>basic provider class. each time a request is intended to this provider,
+the provider should return a response code, headers and body. it defines one
+method:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>short_response(): helper method to send a response code and its
+description.</p></li>
+</ul>
+</div></blockquote>
+<p>You should override methods that respond to http requests you want to
+handle. A handler for an http request with method &lt;method&gt; has to be
+handle_&lt;method&gt;(). E.g. handle_get() for GET requests, handle_put() for
+PUT requests, and so on. A default handler is handle_default() which
+handles any request that does not have a handler defined.</p>
+<p>All handler methods take the same arguments and should return the same
+values. refer to handle_default() documentation below for arguments.</p>
+<p>You probably want to use one of <cite>BaseProvider</cite> subclasses or inherit it in
+your own class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.base_provider.BaseProvider.handle_default">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handle_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.base_provider.BaseProvider.handle_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles all incoming requests that do not have a defined handler method.
+Default implementation raises NotImplementedError.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>handler (http.server.BaseHTTPRequestHandler): The object that called
+this method.</p></li>
+<li><p>url (str): The url that was requested after removing all prefixes by
+other providers. Look at Patterner for information of how prefixes are
+stripped.</p></li>
+<li><p>query (dict): Request query arguments. Defaults to empty dictionary.
+full_url (str): The full url that was requested without removing
+prefixes.</p></li>
+<li><p>body_data: the request body. <cite>BaseHandler</cite> implementation
+supplies this argument as a <cite>dict</cite> only if the request is
+multipart/form-data. Otherwise, <cite>BaseHandler</cite> passes an empty dict.</p></li>
+</ul>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code.</p></li>
+<li><p>headers (dict): Response headers.</p></li>
+<li><p>content (binary file-like object): The response content.</p></li>
+<li><p>postproc (callable): A callable that will be called after serving
+the content. This callable will be called as long as this handler
+method succeded regardless whether sending the content to the
+client succeded or not. The intention of this callable is to close
+all files other than content in case there are open files. For
+example, if content is a file inside a zip file, closing content
+is not enough without closing the parent zip file.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.base_provider.BaseProvider.handle_method">
+<span class="sig-name descname"><span class="pre">handle_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.base_provider.BaseProvider.handle_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the handler for the incoming request based on the request method.
+e.g. returns <cite>self.handle_get()</cite> for GET request, <cite>self.handle_put()</cite>
+method for PUT request, and so on. if no handler for the request method is
+defined, returns <cite>self.handle_default()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.base_provider.BaseProvider.short_response">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">HTTPStatus.OK</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.base_provider.BaseProvider.short_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convinience method which can be used to send a status code and its
+description. It returns the same values as <cite>handle_get</cite> but the code is
+specified as a parameter and the body defaults to a description of the
+code.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code to send. Defaults to
+<cite>http.HTTPStatus.OK</cite>.</p></li>
+<li><p>body: The value to send in the body. It defaults to <cite>None</cite> which
+sends a short description of the code. If the body is not a bytes
+object, it is converted to a string and then encoded to utf8.</p></li>
+</ul>
+</div></blockquote>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code given in the args.</p></li>
+<li><p>headers (dict): Response headers dict with <cite>text/html</cite> in
+<cite>Content-Type</cite> header and the length of the body in
+<cite>Content-Length</cite> header.</p></li>
+<li><p>content (binary file-like object): Description of <cite>response</cite> as a
+utf-8 encoded string if <cite>body</cite> arg is <cite>None</cite>. Otherwise, returns
+<cite>body</cite> represented as utf-8 encoded string.</p></li>
+<li><p>postproc: Always a value of <cite>None</cite>.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.filer"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.filer.</span></span><span class="sig-name descname"><span class="pre">Filer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iconer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icons_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'__icons__/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tfman</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists directory contents and serves files from local file system based on
+the recieved url.</p>
+<p>Allows uploading files to this directory.</p>
+<p>For file uploads, consider using a TPChecker to prevent unauthorized
+uploads.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if the url points to an existing file or directory under
+<cite>self.root</cite>. Otherwise returns <cite>False</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The recieved url to check.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>returns: True if <cite>url</cite> is an existing file or subdirectory in</dt><dd><p><cite>self.root</cite>. False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer.get_file_list">
+<span class="sig-name descname"><span class="pre">get_file_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer.get_file_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <cite>self.handle_get</cite>. Returns a dictionary containing 2
+members:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dirs: A list of directories under the directory pointed by url.</p></li>
+<li><p>files: A list of files under the directory pointed by url.</p></li>
+</ul>
+</div></blockquote>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The directory url to list its content.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer.handle_get">
+<span class="sig-name descname"><span class="pre">handle_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer.handle_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves files and directories. If <cite>url</cite> points to a file, the file is
+sent in the response. If <cite>url</cite> points to a directory, its content is
+sent as an html page if <cite>query[‘format’]</cite> is the string <cite>html</cite> or as
+a JSON file if <cite>query[‘format’]</cite> is the string <cite>json</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer.is_dir">
+<span class="sig-name descname"><span class="pre">is_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if the url points to an existing directory under
+<cite>self.root</cite>. Otherwise returns <cite>False</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The recieved url to check.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>return: True if <cite>url</cite> is an existing subdirectory of <cite>self.root</cite>. False</dt><dd><p>otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer.is_file">
+<span class="sig-name descname"><span class="pre">is_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if the url points to an existing file under <cite>self.root</cite>.
+Otherwise returns <cite>False</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The recieved url to check.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>returns: True if <cite>url</cite> is an existing file in <cite>self.root</cite> or one of its</dt><dd><p>subdirectories. False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.filer.Filer.serve_dir">
+<span class="sig-name descname"><span class="pre">serve_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.filer.Filer.serve_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>JFiler.serve_dir()</cite>. Sends an html file containing
+subdirectories and files present in the requested directory in a similar
+way to file browsers. Icons are taken from <cite>self.iconer</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.iconer"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.iconer.Iconer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.iconer.</span></span><span class="sig-name descname"><span class="pre">Iconer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'humanity'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.iconer.Iconer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>Ziper</cite> but used to serve file icons used in <cite>Filer</cite> and <cite>Ziper</cite>.
+Defines methods to help other objects find icon urls for files of different
+types. The root of <cite>Iconer</cite> is a zip file which contains image files in its
+toplevel. The name of each image file should be in the form <cite>&lt;name&gt;.&lt;ext&gt;</cite>
+where <cite>&lt;ext&gt;</cite> can be any extension and &lt;name&gt; can be any of the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The string <cite>directory</cite>. It makes the image used as the icon for
+directories.</p></li>
+<li><p>A file extension. It makes the image used for file of this extension.</p></li>
+<li><p>General mimetype (such as audio, video, text, …). It makes the image
+used for this mimetype if the file extension image does not exist.</p></li>
+<li><p>The string <cite>generic</cite>. It makes the image used as a fallback icon if
+none of the above was found.</p></li>
+</ul>
+</div></blockquote>
+<p>Any file without extension in <cite>self.root</cite> is ignored.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.iconer.Iconer.get_icon">
+<span class="sig-name descname"><span class="pre">get_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.iconer.Iconer.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is to be used in other content providers to get icons.
+Returns the url of an icon for <cite>name</cite>. The icon is constructed in the
+following way:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The extension is extracted from <cite>name</cite>. If <cite>name</cite> has no
+extension, the full value of <cite>name</cite> is taken.</p></li>
+<li><p>If there is a file in <cite>self.root</cite> named as the extension of <cite>name</cite>
+extracted in the previous step, the url of this file is
+returned. For example, if <cite>name</cite> is <cite>foo.mp4</cite>, this method will
+look for a file named <cite>mp4.&lt;extension&gt;</cite> where <cite>&lt;extension&gt;</cite> may
+be any string. The extension is case insensitive so <cite>foo.mp4</cite>
+will be the same as <cite>foo.MP4</cite>.</p></li>
+<li><p>If there is no file found in the previous step, the mimetype is
+guessed and the general type is taken (such as audio,
+video, etc…).</p></li>
+<li><p>If there is a file in <cite>self.root</cite> with the same name as the
+generel mimetype extracted in the previous step, the url of this
+file is returned. For example, if <cite>name</cite> is <cite>foo.mp4</cite>, this
+method will look for a file named <cite>mp4.&lt;anything&gt;</cite> first. If it
+there is no such file in <cite>self.root</cite>, the method will look for
+<cite>video.&lt;anything&gt;</cite>. <cite>&lt;anything&gt;</cite> may be any string.</p></li>
+<li><p>If there is no file found in the previous step, this method looks
+for a file named <cite>generic.&lt;anything&gt;</cite> and the url of this file
+is returned.</p></li>
+<li><p>If there is no file found in the previous step, an empty string
+is returned.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.iconer.Iconer.get_icons">
+<span class="sig-name descname"><span class="pre">get_icons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.iconer.Iconer.get_icons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in <cite>self.__init__()</cite>. Looks at the toplevel content of <cite>self.root</cite>
+for any files and makes a dictionary for each file. The keys of the
+dictionary are file names without extensions and the values are the file
+names with extensions. Any files without extension are ignored. The
+dictionary is used to look for icons without opening the zip file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.iconer.Iconer.handle_get">
+<span class="sig-name descname"><span class="pre">handle_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.iconer.Iconer.handle_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.handle_get()</cite>. Gives the same result as
+<cite>Filer.handle_get()</cite> but looks at the content of a zip file instead of
+a directory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.ip_patterner"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.ip_patterner.IPPatterner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.ip_patterner.</span></span><span class="sig-name descname"><span class="pre">IPPatterner</span></span><a class="headerlink" href="#cofan.providers.ip_patterner.IPPatterner" title="Permalink to this definition">¶</a></dt>
+<dd><p>The same as <cite>Patterner</cite> but relays requests based on IP address patterns
+instead of url.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ip_patterner.IPPatterner.find_provider">
+<span class="sig-name descname"><span class="pre">find_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ip_patterner.IPPatterner.find_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the pattern list for a pattern that matches the beginning of
+the url and returns the corresponding provider and the pattern.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ip_patterner.IPPatterner.handle_default">
+<span class="sig-name descname"><span class="pre">handle_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ip_patterner.IPPatterner.handle_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles all incoming requests that do not have a defined handler method.
+Default implementation raises NotImplementedError.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>handler (http.server.BaseHTTPRequestHandler): The object that called
+this method.</p></li>
+<li><p>url (str): The url that was requested after removing all prefixes by
+other providers. Look at Patterner for information of how prefixes are
+stripped.</p></li>
+<li><p>query (dict): Request query arguments. Defaults to empty dictionary.
+full_url (str): The full url that was requested without removing
+prefixes.</p></li>
+<li><p>body_data: the request body. <cite>BaseHandler</cite> implementation
+supplies this argument as a <cite>dict</cite> only if the request is
+multipart/form-data. Otherwise, <cite>BaseHandler</cite> passes an empty dict.</p></li>
+</ul>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code.</p></li>
+<li><p>headers (dict): Response headers.</p></li>
+<li><p>content (binary file-like object): The response content.</p></li>
+<li><p>postproc (callable): A callable that will be called after serving
+the content. This callable will be called as long as this handler
+method succeded regardless whether sending the content to the
+client succeded or not. The intention of this callable is to close
+all files other than content in case there are open files. For
+example, if content is a file inside a zip file, closing content
+is not enough without closing the parent zip file.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.password_checker"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.password_checker.PasswordChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.password_checker.</span></span><span class="sig-name descname"><span class="pre">PasswordChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('GET',</span> <span class="pre">'HEAD')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.password_checker.PasswordChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prevents unauthorized requests by checking password. Made mainly to be used
+with Filer uploads. Provides basic protection and should not be considered
+safe in any means.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.password_checker.PasswordChecker.handle_default">
+<span class="sig-name descname"><span class="pre">handle_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.password_checker.PasswordChecker.handle_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles all incoming requests that do not have a defined handler method.
+Default implementation raises NotImplementedError.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>handler (http.server.BaseHTTPRequestHandler): The object that called
+this method.</p></li>
+<li><p>url (str): The url that was requested after removing all prefixes by
+other providers. Look at Patterner for information of how prefixes are
+stripped.</p></li>
+<li><p>query (dict): Request query arguments. Defaults to empty dictionary.
+full_url (str): The full url that was requested without removing
+prefixes.</p></li>
+<li><p>body_data: the request body. <cite>BaseHandler</cite> implementation
+supplies this argument as a <cite>dict</cite> only if the request is
+multipart/form-data. Otherwise, <cite>BaseHandler</cite> passes an empty dict.</p></li>
+</ul>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code.</p></li>
+<li><p>headers (dict): Response headers.</p></li>
+<li><p>content (binary file-like object): The response content.</p></li>
+<li><p>postproc (callable): A callable that will be called after serving
+the content. This callable will be called as long as this handler
+method succeded regardless whether sending the content to the
+client succeded or not. The intention of this callable is to close
+all files other than content in case there are open files. For
+example, if content is a file inside a zip file, closing content
+is not enough without closing the parent zip file.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.patterner"></span><dl class="py exception">
+<dt class="sig sig-object py" id="cofan.providers.patterner.NoMatchFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.patterner.</span></span><span class="sig-name descname"><span class="pre">NoMatchFoundError</span></span><a class="headerlink" href="#cofan.providers.patterner.NoMatchFoundError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.patterner.</span></span><span class="sig-name descname"><span class="pre">Patterner</span></span><a class="headerlink" href="#cofan.providers.patterner.Patterner" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>BaseProvider</cite> subclass that relays requests to other providers based on
+requested url pattern. The other providers are added to the <cite>Patterner</cite>
+instance with the request url pattern they should get. When the <cite>Patterner</cite>
+gets a request, it searches for a pattern that matches the beginning of the
+url. When found, the <cite>Patterner</cite> calls <cite>handle_get()</cite> method of the target
+provider, giving it the same parameters but with the prefix stripped from
+the beginning of the url.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.patterner.Patterner.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a pattern and a provider to the <cite>Patterner</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pattern (str): A string containing the url prefix of the provider.</p></li>
+<li><p>provider (<cite>BaseProvider</cite>): The provider to relay the request to.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner.find_provider">
+<span class="sig-name descname"><span class="pre">find_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.patterner.Patterner.find_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the pattern list for a pattern that matches the beginning of
+the url and returns the corresponding provider and the pattern.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner.get_patterns">
+<span class="sig-name descname"><span class="pre">get_patterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.patterner.Patterner.get_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the pattern strings added to the <cite>Patterner</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner.get_title">
+<span class="sig-name descname"><span class="pre">get_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.patterner.Patterner.get_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the pattern title.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pattern (str): the pattern to look for its title.</p></li>
+</ul>
+</div></blockquote>
+<p>returns:</p>
+<blockquote>
+<div><p>The pattern title.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner.handle_default">
+<span class="sig-name descname"><span class="pre">handle_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.patterner.Patterner.handle_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles all incoming requests that do not have a defined handler method.
+Default implementation raises NotImplementedError.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>handler (http.server.BaseHTTPRequestHandler): The object that called
+this method.</p></li>
+<li><p>url (str): The url that was requested after removing all prefixes by
+other providers. Look at Patterner for information of how prefixes are
+stripped.</p></li>
+<li><p>query (dict): Request query arguments. Defaults to empty dictionary.
+full_url (str): The full url that was requested without removing
+prefixes.</p></li>
+<li><p>body_data: the request body. <cite>BaseHandler</cite> implementation
+supplies this argument as a <cite>dict</cite> only if the request is
+multipart/form-data. Otherwise, <cite>BaseHandler</cite> passes an empty dict.</p></li>
+</ul>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code.</p></li>
+<li><p>headers (dict): Response headers.</p></li>
+<li><p>content (binary file-like object): The response content.</p></li>
+<li><p>postproc (callable): A callable that will be called after serving
+the content. This callable will be called as long as this handler
+method succeded regardless whether sending the content to the
+client succeded or not. The intention of this callable is to close
+all files other than content in case there are open files. For
+example, if content is a file inside a zip file, closing content
+is not enough without closing the parent zip file.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.patterner.Patterner.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.patterner.Patterner.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a pattern and its provider from the pattern list. If a pattern
+exists multiple times (which you should not do anyway), only the first
+occurance is removed.</p>
+<dl class="simple">
+<dt>args:</dt><dd><p>pattern (str): Pattern to remove.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.pattern_lister"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.pattern_lister.PatternLister">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.pattern_lister.</span></span><span class="sig-name descname"><span class="pre">PatternLister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iconer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icons_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'__icons__/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'__.*__'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'..*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.pattern_lister.PatternLister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <cite>Filer</cite> but instead of showing content of a directory, shows the
+prefixes added to a <cite>Patterner</cite>. It also provides icon urls for the
+prefixes. See <cite>Patterner</cite> for more details of the <cite>Patterner</cite> provider.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.pattern_lister.PatternLister.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.pattern_lister.PatternLister.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>overrides <cite>Filer.exists()</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The recieved url to check.</p></li>
+</ul>
+</div></blockquote>
+<p>returns: True if <cite>url</cite> is an empty string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.pattern_lister.PatternLister.get_file_list">
+<span class="sig-name descname"><span class="pre">get_file_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.pattern_lister.PatternLister.get_file_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.get_file_list()</cite> where the returned dict contains:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dirs: An empty list.</p></li>
+<li><p>files: A list of patterns under <cite>self</cite>.</p></li>
+</ul>
+</div></blockquote>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The directory url to list its content.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.pattern_lister.PatternLister.is_dir">
+<span class="sig-name descname"><span class="pre">is_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.pattern_lister.PatternLister.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>overrides <cite>Filer.is_dir()</cite>. same as <cite>self.exists()</cite>.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The recieved url to check.</p></li>
+</ul>
+</div></blockquote>
+<p>returns: True if <cite>url</cite> is an empty string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.pattern_lister.PatternLister.is_file">
+<span class="sig-name descname"><span class="pre">is_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.pattern_lister.PatternLister.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>overrides <cite>Filer.is_file()</cite>. always returns False</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>url (path-like object): The recieved url to check.</p></li>
+</ul>
+</div></blockquote>
+<p>returns: False</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.statuser"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.statuser.Statuser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.statuser.</span></span><span class="sig-name descname"><span class="pre">Statuser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">HTTPStatus.NOT_FOUND</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.statuser.Statuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>A subclass of <cite>BaseProvider</cite>. This provider is very similar to BaseProvider.
+The only difference is that it takes the response code in its constructor
+and sends this response code instead of OK.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.statuser.Statuser.handle_default">
+<span class="sig-name descname"><span class="pre">handle_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.statuser.Statuser.handle_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles all incoming requests that do not have a defined handler method.
+Default implementation raises NotImplementedError.</p>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>handler (http.server.BaseHTTPRequestHandler): The object that called
+this method.</p></li>
+<li><p>url (str): The url that was requested after removing all prefixes by
+other providers. Look at Patterner for information of how prefixes are
+stripped.</p></li>
+<li><p>query (dict): Request query arguments. Defaults to empty dictionary.
+full_url (str): The full url that was requested without removing
+prefixes.</p></li>
+<li><p>body_data: the request body. <cite>BaseHandler</cite> implementation
+supplies this argument as a <cite>dict</cite> only if the request is
+multipart/form-data. Otherwise, <cite>BaseHandler</cite> passes an empty dict.</p></li>
+</ul>
+<p>returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>response (http.HTTPStatus): Response code.</p></li>
+<li><p>headers (dict): Response headers.</p></li>
+<li><p>content (binary file-like object): The response content.</p></li>
+<li><p>postproc (callable): A callable that will be called after serving
+the content. This callable will be called as long as this handler
+method succeded regardless whether sending the content to the
+client succeded or not. The intention of this callable is to close
+all files other than content in case there are open files. For
+example, if content is a file inside a zip file, closing content
+is not enough without closing the parent zip file.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.providers.ziper"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.providers.ziper.</span></span><span class="sig-name descname"><span class="pre">Ziper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iconer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icons_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'__icons__/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tfman</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <cite>Filer</cite> but serves the content of a zip file instead of
+a directory. The root in the constructor must be a zip file. Files served
+from this class are not seekable so resuming download is not possible for
+the content of a Ziper.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.exists()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.get_file_list">
+<span class="sig-name descname"><span class="pre">get_file_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.get_file_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.get_file_list()</cite>. Looks at the content of the zip
+file instead of a directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.handle_get">
+<span class="sig-name descname"><span class="pre">handle_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.handle_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.handle_get()</cite>. Gives the same result as
+<cite>Filer.handle_get()</cite> but looks at the content of a zip file instead of
+a directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.is_dir">
+<span class="sig-name descname"><span class="pre">is_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.is_dir()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.is_file">
+<span class="sig-name descname"><span class="pre">is_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>Filer.is_file()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.serve_dir">
+<span class="sig-name descname"><span class="pre">serve_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.serve_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>JFiler.serve_dir()</cite>. Sends an html file containing
+subdirectories and files present in the requested directory in a similar
+way to file browsers. Icons are taken from <cite>self.iconer</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cofan.providers.ziper.Ziper.serve_file">
+<span class="sig-name descname"><span class="pre">serve_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.providers.ziper.Ziper.serve_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <cite>JFiler.serve_dir()</cite>. Looks at the content of the zip file
+instead of a directory.</p>
+<p>This method has an additional optional argument:</p>
+<blockquote>
+<div><p>root(<cite>zipfile.ZipFile</cite>) Opened <cite>self.root</cite>. It is used in
+<cite>self.handle_get()</cite> to avoid opening and closing <cite>self.root</cite>
+multiple times. Defaults to None which means <cite>self.root</cite> will be
+opened and a new <cite>zipfile.ZipFile</cite> instance will be created.</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cofan.utils.misc"></span><dl class="py function">
+<dt class="sig sig-object py" id="cofan.utils.misc.tree_patterner">
+<span class="sig-prename descclassname"><span class="pre">cofan.utils.misc.</span></span><span class="sig-name descname"><span class="pre">tree_patterner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.utils.misc.tree_patterner" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates url prefixes for the directory tree under path. each prefix is handled
+by the provider returned from the provider.py file in the directory.</p>
+</dd></dl>
+
+<span class="target" id="module-cofan.utils.tfman"></span><dl class="py class">
+<dt class="sig sig-object py" id="cofan.utils.tfman.TFMan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cofan.utils.tfman.</span></span><span class="sig-name descname"><span class="pre">TFMan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cofan.utils.tfman.TFMan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporary file manager. Used in cofan by Filer to create a temporary file for
+each partially uploaded file until the upload completes. Then moves the
+temporary file to its upload path.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cofan</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-guide.html">Quick Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Serving Multiple Directories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">cofan Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="other-features.html" title="previous chapter">Other Features</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Mohammad Alghafli.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/reference.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
