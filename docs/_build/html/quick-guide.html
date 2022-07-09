@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Quick Guide &#8212; cofan 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Serving a Local Directory" href="serving-a-local-dir.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="quick-guide">
+<h1>Quick Guide<a class="headerlink" href="#quick-guide" title="Permalink to this heading">¶</a></h1>
+<section id="serve-local-directory">
+<h2>Serve local directory<a class="headerlink" href="#serve-local-directory" title="Permalink to this heading">¶</a></h2>
+<p>This is a typical usage example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cofan</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="c1">#assume we want to share files from `~/Videos` directory</span>
+
+<span class="c1">#lets make an http file browser and share our videos</span>
+
+<span class="c1">#first, we specify the icons used in the file browser</span>
+<span class="c1">#you can omit the theme. it defaults to `humanity`. This theme is supplied</span>
+<span class="c1">#with `cofan`.</span>
+<span class="n">icons</span> <span class="o">=</span> <span class="n">Iconer</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="s1">&#39;humanity&#39;</span><span class="p">)</span>
+
+<span class="c1">#now we create a Filer and specify the path we want to serve</span>
+<span class="n">vid</span> <span class="o">=</span> <span class="n">Filer</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;Videos&#39;</span><span class="p">,</span> <span class="n">iconer</span><span class="o">=</span><span class="n">icons</span><span class="p">)</span>
+
+<span class="c1">#now we need to give prefixes to our website</span>
+<span class="c1">#we create a patterner</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="n">Patterner</span><span class="p">()</span>
+
+<span class="c1">#then we add the iconer and filer with their prefixes</span>
+
+<span class="c1">#first, we need to add our iconer</span>
+<span class="c1">#we should have told the iconer about its prefix but we did not. by default</span>
+<span class="c1">#it assumes `__icons__`</span>
+<span class="c1">#make sure to add a trailing slash</span>
+<span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;__icons__/&#39;</span><span class="p">,</span> <span class="n">icons</span><span class="p">)</span>
+
+<span class="c1">#now we add our filer as the root url</span>
+<span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">vid</span><span class="p">)</span>
+
+<span class="c1">#now we create our handler like in http.server. we give it our patterner</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">BaseHandler</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+
+<span class="c1">#and create our server like in http.server</span>
+<span class="n">srv</span> <span class="o">=</span> <span class="n">CofanServer</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+
+<span class="c1">#and serve forever</span>
+<span class="n">srv</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+<span class="c1">#now try to open your browser on http://localhost:8000/</span>
+</pre></div>
+</div>
+</section>
+<section id="as-a-main-python-script">
+<h2>As a main python script<a class="headerlink" href="#as-a-main-python-script" title="Permalink to this heading">¶</a></h2>
+<p>This module can also be run as a main python script to serve files from a
+directory.</p>
+<p>commandline syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cofan</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="o">&lt;</span><span class="n">addr</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>options:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>-a &lt;addr&gt;, –addr &lt;addr&gt;: specify the address and port to bind to. &lt;addr&gt;
+should be in the form <cite>&lt;ip&gt;:&lt;port&gt;</cite> where <cite>&lt;ip&gt;</cite> is the ip address and
+<cite>&lt;port&gt;</cite> is the tcp port. defaults to <cite>localhost:8000</cite>.</p></li>
+</ul>
+</div></blockquote>
+<p>args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>root: The root directory to serve. Defaults to the current directory.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="further-readings">
+<h2>Further readings<a class="headerlink" href="#further-readings" title="Permalink to this heading">¶</a></h2>
+<p>In <a class="reference internal" href="serving-a-local-dir.html"><span class="doc">Serving a Local Directory</span></a> you can a the more detailed cofan tutorial.
+In <a class="reference internal" href="reference.html"><span class="doc">cofan Reference</span></a> you will find the library reference.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cofan</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#serve-local-directory">Serve local directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#as-a-main-python-script">As a main python script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-readings">Further readings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serving-a-local-dir.html">Serving a Local Directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showing-icons.html">Showing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-multiple-dirs.html">Serving Multiple Directories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listing-prefixes.html">Listing Prefixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving-zip-files.html">Serving Zip Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-features.html">Other Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">cofan Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="serving-a-local-dir.html" title="next chapter">Serving a Local Directory</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Mohammad Alghafli.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/quick-guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
