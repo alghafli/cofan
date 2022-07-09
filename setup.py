@@ -106,7 +106,7 @@ setup(
     #
     # py_modules=[],
     #
-    packages=['cofan'],  # Required
+    packages=['cofan', 'cofan.providers', 'cofan.utils'],  # Required
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -114,7 +114,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['fileslice', 'multipart'],  # Optional
+    install_requires=['fileslice', 'python-multipart'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -135,7 +135,10 @@ setup(
     # If using Python 2.6 or earlier, then these have to be included in
     # MANIFEST.in as well.
     package_data={  # Optional
-        'cofan': ['asset/*', 'asset/themes/*'],
+        'cofan': ['providers/asset/*',
+                  'providers/asset/themes/*',
+                  'main_tree/**/*'
+                ],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
