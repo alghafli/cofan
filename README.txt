@@ -1,5 +1,5 @@
-:Date: 2022-07-09
-:Version: 1.0.2
+:Date: 2022-07-10
+:Version: 1.0.3
 :Authors:
     * Mohammad Alghafli <thebsom@gmail.com>
 
